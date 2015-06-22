@@ -1,27 +1,104 @@
+<!-- Basic Requirements:
+
+- Show the user new tweets somehow. (You can show them automatically as they're created, or create a button that displays new tweets.)
+- Display the timestamps of when the tweets were created.
+- Design your interface so that you want to look at and use the product you're making.
+- Allow the user to click on a username to see that user's timeline. -->
+
+
 <!DOCTYPE html>
 <html>
   <head>
     <script src="jquery.js"></script>
     <script src="data_generator.js"></script>
   </head>
+
   <body>
-    <script>
 
-      $(document).ready(function(){
-        var $body = $('body');
-        $body.html('');
+    <header>
+      <h1>Twittler!!!</h1>
+      <button type="button" id="refresh">Click Me to Update!</button>
+      <title>Tweet!</title>
+      <ul>
+        <li><button type="button" id="shawndrost">@shawndrost</button></li>
+        <li><button type="button" id="sharksforcheap">@sharksforcheap</button></li>
+        <li><button type="button" id="mracus">@mracus</button></li>
+        <li><button type="button" id="douglascalhoun">@douglascalhoun</button></li>
+       </ul> 
+    </header>
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          var $tweet = $('<div></div>');
-          $tweet.text('@' + tweet.user + ': ' + tweet.message);
-          $tweet.appendTo($body);
-          index -= 1;
-        }
+    <section>
+      <script>
+        $(document).ready(function(){
+          
+          var $body = $('section');
+          
+          function refresh () {
+          $body.html('');
+          var index = streams.home.length - 1;
+          while(index >= 0){
+            var tweet = streams.home[index];
+            var $tweet = $('<div></div>');
+            $tweet.text('@' + tweet.user + ': ' + tweet.message + ' --- ' + tweet.created_at);
+            $tweet.appendTo($body);
+            index -= 1;
+            var tweetuser = tweet.user;
+            $("div").css({'background-color': '#00CCFF', 'color': 'black', 'font-family': 'Arial'})
+            $tweet.addClass(tweetuser)
+            console.log($tweet)
+            }
+            
+          }  
+    
+          refresh();
+        
+          function shawndrost () {
+            $("div").filter('.shawndrost').show();
+            $("div").filter('.sharksforcheap').hide();
+            $("div").filter('.mracus').hide();
+            $("div").filter('.douglascalhoun').hide();
+          }
 
-      });
+          function sharksforcheap () {
+            $("div").filter('.sharksforcheap').show();
+            $("div").filter('.shawndrost').hide();
+            $("div").filter('.mracus').hide();
+            $("div").filter('.douglascalhoun').hide();
+          }
 
-    </script>
+          function mracus () {
+            $("div").filter('.mracus').show();
+            $("div").filter('.sharksforcheap').hide();
+            $("div").filter('.shawndrost').hide();
+            $("div").filter('.douglascalhoun').hide();
+          }
+
+          function douglascalhoun () {
+            $("div").filter('.douglascalhoun').show();
+            $("div").filter('.sharksforcheap').hide();
+            $("div").filter('.mracus').hide();
+            $("div").filter('.shawndrost').hide();
+          }
+
+
+        document.getElementById("refresh").addEventListener("click", refresh);
+        document.getElementById("shawndrost").addEventListener("click", shawndrost);
+        document.getElementById("sharksforcheap").addEventListener("click", sharksforcheap);
+        document.getElementById("mracus").addEventListener("click", mracus);
+        document.getElementById("douglascalhoun").addEventListener("click", douglascalhoun);
+
+        $("div").css({'background-color': '#00CCFF', 'color': 'black', 'font-family': 'Arial'})
+        $("body").css({'background-color': '#00CCFF'});
+        $("section").css({'line-height': 2.5, 'font-family': 'Arial'});
+        $("h1").css({'color': 'black', 'font-family': 'Arial', 'font-size': '48px'})
+
+
+        });
+
+      </script>
+
+
+    </section>
+
   </body>
 </html>
